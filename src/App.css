@@ -1,0 +1,30 @@
+.App {
+  text-align: center;
+}
+
+div a {
+  color: black;
+  text-decoration: none;
+}
+
+.checked {
+  margin-left: 1rem;
+  color: green;
+}
+
+.unchecked {
+  margin-left: 1rem;
+  color: red;
+}
+
+div button {
+  margin-left: 1rem;
+}
+
+.margin {
+  margin-top: 1rem;
+}
+
+a {
+  cursor: pointer;
+}
