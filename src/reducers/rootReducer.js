@@ -23,7 +23,10 @@ const rootReducer = (state = initState, action) => {
       todoIds.push(todo.id);
     });
     let newId = Math.max(...todoIds);
-    // console.log(todoIds);
+    if (newId === -Infinity) {
+      newId = 0;
+    }
+    console.log(newId);
     return {
       ...state,
       todos: [
