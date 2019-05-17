@@ -21,7 +21,7 @@ export class Home extends Component {
       todos.map(todo => {
         return (
           <div className="list-group-item list-group-item-action" key={todo.id}>
-            <a href="#">{todo.title}</a>
+            <a>{todo.title}</a>
             <a onClick={() => this.handleClickCheck(todo.id)}>
               {todo.completed ? (
                 <i className="far fa-check-square checked" />
