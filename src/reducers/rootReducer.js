@@ -23,29 +23,54 @@ const initState = {
 
 const rootReducer = (state = initState, action) => {
   if (action.type === "DELETE_TODO") {
-    let ourCategory = state.categories.filter(category => {
-      return category.id === action.categoryId;
-    });
-    let newTodos = ourCategory[0].todos.filter(todo => {
-      return action.id !== todo.id;
-    });
-    ourCategory[0].todos = [...newTodos];
-    console.log(ourCategory[0]);
-    let otherCategories = state.categories.filter(category => {
-      return category.id !== action.categoryId;
-    });
-    console.log("this is other categories before", otherCategories[0]);
-    let index = action.id - 1;
-    console.log("this is other categories after", typeof otherCategories);
-    let newCategories = [];
-    newCategories.push(otherCategories[0]);
-    newCategories.splice(index, 0, ourCategory[0]);
-    console.log("this is newCategories", newCategories);
-    const deepClone4Win = JSON.parse(JSON.stringify(newCategories));
+    console.log(action.id, action.categoryId);
+    const categories = [...state.categories];
+    const category = categories.find(
+      category => category.id === action.categoryId
+    );
+
+    const todos = category.todos.filter(todo => todo.id !== action.id);
+    category.todos = todos;
+
+    const index = categories.findIndex(
+      category => category.id === action.categoryId
+    );
+    categories.splice(index, 1, category);
+    const deepClone4Win = JSON.parse(JSON.stringify(categories));
+
     return {
       ...state,
       categories: deepClone4Win
     };
+
+    // let ourCategory = state.categories.filter(category => {
+    //   return category.id === action.categoryId;
+    // });
+    // let newTodos = ourCategory[0].todos.filter(todo => {
+    //   return action.id !== todo.id;
+    // });
+    // ourCategory[0].todos = [...newTodos];
+    // console.log(ourCategory[0]);
+    // let otherCategories = state.categories.filter(category => {
+    //   return category.id !== action.categoryId;
+    // });
+    // console.log("this is other categories before", otherCategories[0]);
+    // let index = action.id - 1;
+    // console.log("this is other categories after", typeof otherCategories);
+    // let newCategories = [];
+    // if (otherCategories) {
+    //   for (let i = 0; i < otherCategories.length; i++) {
+    //     newCategories.push(otherCategories[i]);
+    //   }
+    // }
+    // console.warn("this is newCategories", newCategories);
+    // newCategories.splice(index, 0, ourCategory[0]);
+    // // newCategories.unshift(ourCategory[0]);
+    // const deepClone4Win = JSON.parse(JSON.stringify(newCategories));
+    // return {
+    //   ...state,
+    //   categories: deepClone4Win
+    // };
   }
   if (action.type === "ADD_TODO") {
     console.log(action.title, action.categoryId);
@@ -62,6 +87,9 @@ const rootReducer = (state = initState, action) => {
       todoIds.push(todo.id);
     });
     let newId = Math.max(...todoIds);
+    if (!newId) {
+      newId = 0;
+    }
     if (newId === -Infinity) {
       newId = 0;
     }
@@ -73,7 +101,12 @@ const rootReducer = (state = initState, action) => {
     ourCategory[0].todos.push(newTodo);
     console.log("lets see", ourCategory[0]);
     let newCategories = [];
-    newCategories.push(otherCategories[0]);
+    if (otherCategories) {
+      for (let i = 0; i < otherCategories.length; i++) {
+        newCategories.push(otherCategories[i]);
+      }
+    }
+    console.warn("BIIIIIIIIG ALEEEEEEERT", otherCategories);
     newCategories.splice(action.categoryId - 1, 0, ourCategory[0]);
     console.log("this is newCategories", newCategories);
     const deepClone4Win = JSON.parse(JSON.stringify(newCategories));
@@ -114,7 +147,11 @@ const rootReducer = (state = initState, action) => {
     console.log(otherTodos);
     console.log("lets see", ourCategory[0]);
     let newCategories = [];
-    newCategories.push(otherCategories[0]);
+    if (otherCategories) {
+      for (let i = 0; i < otherCategories.length; i++) {
+        newCategories.push(otherCategories[i]);
+      }
+    }
     newCategories.splice(action.categoryId - 1, 0, ourCategory[0]);
     console.log("this is newCategories", newCategories);
     const deepClone4Win = JSON.parse(JSON.stringify(newCategories));
@@ -153,7 +190,11 @@ const rootReducer = (state = initState, action) => {
     console.log(otherTodos);
     console.log("lets see", ourCategory[0]);
     let newCategories = [];
-    newCategories.push(otherCategories[0]);
+    if (otherCategories) {
+      for (let i = 0; i < otherCategories.length; i++) {
+        newCategories.push(otherCategories[i]);
+      }
+    }
     newCategories.splice(action.categoryId - 1, 0, ourCategory[0]);
     console.log("this is newCategories", newCategories);
     const deepClone4Win = JSON.parse(JSON.stringify(newCategories));
@@ -169,6 +210,7 @@ const rootReducer = (state = initState, action) => {
 
   if (action.type === "ADD_CATEGORY") {
     let categoryIds = [];
+
     state.categories.map(category => {
       categoryIds.push(category.id);
     });
