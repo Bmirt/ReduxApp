@@ -2,27 +2,38 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 export class Home extends Component {
-  handleClick = id => {
-    this.props.deleteTodo(id);
+  handleClick = (id, categoryId) => {
+    this.props.deleteTodo(id, categoryId);
   };
   handleClickAdd = () => {
     let title = prompt("Please Add a new Todo");
     if (title) {
-      this.props.addTodo(title);
+      this.props.addTodo(title, this.props.categoryId);
     }
   };
-  handleClickCheck = id => {
-    this.props.changeCheck(id);
+  handleClickCheck = (id, categoryId) => {
+    this.props.changeCheck(id, categoryId);
+  };
+  changeTodoFunction = (id, categoryId) => {
+    let title = prompt("Please choose a new name");
+    this.props.changeTodo(id, title, categoryId);
+  };
+  goTo = () => {
+    this.props.history.push("/");
   };
   render() {
     console.log(this.props);
-    const { todos } = this.props;
+    const todos = this.props.category.todos;
     const todoList = todos.length ? (
       todos.map(todo => {
         return (
           <div className="list-group-item list-group-item-action" key={todo.id}>
             <a>{todo.title}</a>
-            <a onClick={() => this.handleClickCheck(todo.id)}>
+            <a
+              onClick={() =>
+                this.handleClickCheck(todo.id, this.props.categoryId)
+              }
+            >
               {todo.completed ? (
                 <i className="far fa-check-square checked" />
               ) : (
@@ -30,8 +41,16 @@ export class Home extends Component {
               )}
             </a>
             <button
+              className="btn btn-warning"
+              onClick={() =>
+                this.changeTodoFunction(todo.id, this.props.categoryId)
+              }
+            >
+              Change Todo
+            </button>
+            <button
               className="btn btn-danger"
-              onClick={() => this.handleClick(todo.id)}
+              onClick={() => this.handleClick(todo.id, this.props.categoryId)}
             >
               Delete
             </button>
@@ -49,9 +68,12 @@ export class Home extends Component {
           {todoList}
           <button
             className="btn btn-success margin"
-            onClick={() => this.handleClickAdd()}
+            onClick={() => this.handleClickAdd(this.props.categoryId)}
           >
             Add Todo
+          </button>
+          <button className="btn btn-info margin" onClick={() => this.goTo()}>
+            Categories
           </button>
         </div>
       </div>
@@ -60,21 +82,26 @@ export class Home extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  let categoryId = ownProps.match.params.post_id;
   return {
-    todos: state.todos
+    category: state.categories.find(category => category.id === categoryId),
+    categoryId: ownProps.match.params.post_id
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteTodo: id => {
-      dispatch({ type: "DELETE_TODO", id });
+    deleteTodo: (id, categoryId) => {
+      dispatch({ type: "DELETE_TODO", id, categoryId });
     },
-    addTodo: title => {
-      dispatch({ type: "ADD_TODO", title });
+    addTodo: (title, categoryId) => {
+      dispatch({ type: "ADD_TODO", title, categoryId });
     },
-    changeCheck: id => {
-      dispatch({ type: "CHANGE_COMPLETED", id });
+    changeTodo: (id, title, categoryId) => {
+      dispatch({ type: "CHANGE_TODO", id, title, categoryId });
+    },
+    changeCheck: (id, categoryId) => {
+      dispatch({ type: "CHANGE_COMPLETED", id, categoryId });
     }
   };
 };
