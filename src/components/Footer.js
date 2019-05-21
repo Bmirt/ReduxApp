@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 
 export class Footer extends Component {
   render() {
-    return <div className="footer__container" />;
+    return (
+      <div className="footer__container">
+        <h1>I am even worse with Footers</h1>
+      </div>
+    );
   }
 }
 

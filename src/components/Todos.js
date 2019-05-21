@@ -70,6 +70,7 @@ export class Home extends Component {
                   <i className="far fa-square unchecked" />
                 )}
               </a>
+              <span className="dateCreated">{todo.dateCreated}</span>
             </div>
             <div className="buttons">
               <button

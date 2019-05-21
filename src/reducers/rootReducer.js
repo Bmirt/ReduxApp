@@ -1,24 +1,5 @@
 const initState = {
-  categories: [
-    {
-      id: "1",
-      name: "Category 1",
-      todos: [
-        { id: "1", title: "todo 1", completed: true },
-        { id: "2", title: "todo 2", completed: false },
-        { id: "3", title: "todo 3", completed: true }
-      ]
-    },
-    {
-      id: "2",
-      name: "Category 2",
-      todos: [
-        { id: "1", title: "Category2 1", completed: true },
-        { id: "2", title: "Category2 2", completed: false },
-        { id: "3", title: "Category2 3", completed: true }
-      ]
-    }
-  ]
+  categories: []
 };
 
 const rootReducer = (state = initState, action) => {
@@ -53,6 +34,27 @@ const rootReducer = (state = initState, action) => {
       return category.id !== action.categoryId;
     });
 
+    let dateObj = new Date();
+    let month = dateObj.getMonth() + 1; //months from 1-12
+    let day = dateObj.getDate();
+    let year = dateObj.getFullYear();
+    let seconds = dateObj.getSeconds();
+    let minutes = dateObj.getMinutes();
+    let hour = dateObj.getHours();
+
+    let newDate =
+      year +
+      "/" +
+      month +
+      "/" +
+      day +
+      " " +
+      hour +
+      ":" +
+      minutes +
+      ":" +
+      seconds;
+
     let todoIds = [];
     ourCategory[0].todos.map(todo => {
       todoIds.push(todo.id);
@@ -67,7 +69,8 @@ const rootReducer = (state = initState, action) => {
     let newTodo = {
       id: String(newId + 1),
       title: action.title,
-      completed: false
+      completed: false,
+      dateCreated: newDate
     };
     ourCategory[0].todos.push(newTodo);
     console.log("lets see", ourCategory[0]);

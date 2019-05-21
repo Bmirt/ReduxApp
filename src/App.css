@@ -23,6 +23,11 @@
   height: 55vh;
 }
 
+.dateCreated {
+  margin-left: 5px;
+  color: #ffc107;
+}
+
 .App {
   text-align: center;
 }
@@ -66,6 +71,8 @@ a {
   width: 100%;
   height: 20vh;
   background-color: #26a65b;
+  display: flex;
+  justify-content: center;
 }
 
 #categoryContainer {
@@ -90,4 +97,46 @@ a {
 
 #todosContainer .buttons {
   margin-left: auto;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Arvo);
+
+h1,
+h2 {
+  font-family: "Arvo";
+}
+
+h1 {
+  font-size: 50px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h1,
+h2,
+.dateCreated,
+.categoryTitle,
+.btn.btn-warning {
+  color: #d5ad6d; /*if no support for background-clip*/
+
+  background: linear-gradient(transparent, transparent),
+    linear-gradient(
+      top,
+      rgba(213, 173, 109, 1) 0%,
+      rgba(213, 173, 109, 1) 26%,
+      rgba(226, 186, 120, 1) 35%,
+      rgba(163, 126, 67, 1) 45%,
+      rgba(145, 112, 59, 1) 61%,
+      rgba(213, 173, 109, 1) 100%
+    );
+  background: -o-linear-gradient(transparent, transparent);
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.header__container h1,
+.footer__container h1 {
+  align-self: center;
 }
