@@ -2,7 +2,7 @@ const initState = {
   categories: [
     {
       id: "1",
-      name: "category1",
+      name: "Category 1",
       todos: [
         { id: "1", title: "todo 1", completed: true },
         { id: "2", title: "todo 2", completed: false },
@@ -11,7 +11,7 @@ const initState = {
     },
     {
       id: "2",
-      name: "category2",
+      name: "Category 2",
       todos: [
         { id: "1", title: "Category2 1", completed: true },
         { id: "2", title: "Category2 2", completed: false },

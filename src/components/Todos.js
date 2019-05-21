@@ -27,33 +27,41 @@ export class Home extends Component {
     const todoList = todos.length ? (
       todos.map(todo => {
         return (
-          <div className="list-group-item list-group-item-action" key={todo.id}>
-            <a>{todo.title}</a>
-            <a
-              onClick={() =>
-                this.handleClickCheck(todo.id, this.props.categoryId)
-              }
-            >
-              {todo.completed ? (
-                <i className="far fa-check-square checked" />
-              ) : (
-                <i className="far fa-square unchecked" />
-              )}
-            </a>
-            <button
-              className="btn btn-warning"
-              onClick={() =>
-                this.changeTodoFunction(todo.id, this.props.categoryId)
-              }
-            >
-              Change Todo
-            </button>
-            <button
-              className="btn btn-danger"
-              onClick={() => this.handleClick(todo.id, this.props.categoryId)}
-            >
-              Delete
-            </button>
+          <div
+            className="list-group-item list-group-item-action "
+            id="todosContainer"
+            key={todo.id}
+          >
+            <div className="text">
+              <a>{todo.title}</a>
+              <a
+                onClick={() =>
+                  this.handleClickCheck(todo.id, this.props.categoryId)
+                }
+              >
+                {todo.completed ? (
+                  <i className="far fa-check-square checked" />
+                ) : (
+                  <i className="far fa-square unchecked" />
+                )}
+              </a>
+            </div>
+            <div className="buttons">
+              <button
+                className="btn btn-warning"
+                onClick={() =>
+                  this.changeTodoFunction(todo.id, this.props.categoryId)
+                }
+              >
+                Change Todo
+              </button>
+              <button
+                className="btn btn-danger"
+                onClick={() => this.handleClick(todo.id, this.props.categoryId)}
+              >
+                Delete
+              </button>
+            </div>
           </div>
         );
       })
@@ -62,9 +70,11 @@ export class Home extends Component {
     );
 
     return (
-      <div>
+      <div className="content">
         <div className="container home">
-          <h4 className="center">Home</h4>
+          <h4 className="center categoryTitle">
+            {this.props.category.name} Todos
+          </h4>
           {todoList}
           <button
             className="btn btn-success margin"

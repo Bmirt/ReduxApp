@@ -29,29 +29,32 @@ export class Categories extends Component {
     const categoryList = categories.map(category => {
       return (
         <div
-          className="list-group-item list-group-item-action"
+          className="list-group-item list-group-item-action "
+          id="categoryContainer"
           key={category.id}
         >
           <a onClick={() => this.goTo(category.id)}>{category.name}</a>
-          <button
-            className="btn btn-warning"
-            onClick={() => this.changeCategoryFunction(category.id)}
-          >
-            Change
-          </button>
-          <button
-            className="btn btn-danger"
-            onClick={() => this.deleteCategoryFunction(category.name)}
-          >
-            Delete
-          </button>
+          <div>
+            <button
+              className="btn btn-warning"
+              onClick={() => this.changeCategoryFunction(category.id)}
+            >
+              Change
+            </button>
+            <button
+              className="btn btn-danger"
+              onClick={() => this.deleteCategoryFunction(category.name)}
+            >
+              Delete
+            </button>
+          </div>
         </div>
       );
     });
     return (
-      <div>
+      <div className="content">
         <div className="container home">
-          <h4 className="center">Categories</h4>
+          <h4 className="center categoryTitle">Categories</h4>
           {categoryList}
           <button
             className="btn btn-success margin"
