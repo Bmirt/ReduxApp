@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import NotFound from "./NotFound";
 
 export class Home extends Component {
   handleClick = (id, categoryId) => {
@@ -8,7 +9,15 @@ export class Home extends Component {
   handleClickAdd = () => {
     let title = prompt("Please Add a new Todo");
     if (title) {
-      this.props.addTodo(title, this.props.categoryId);
+      let findIt = this.props.category.todos.find(todo => {
+        return todo.title.toLowerCase() === title.toLowerCase();
+      });
+      console.log("this is findit", findIt);
+      if (findIt) {
+        alert("Sorry todo with such name already exists");
+      } else {
+        this.props.addTodo(title, this.props.categoryId);
+      }
     }
   };
   handleClickCheck = (id, categoryId) => {
@@ -16,13 +25,29 @@ export class Home extends Component {
   };
   changeTodoFunction = (id, categoryId) => {
     let title = prompt("Please choose a new name");
-    this.props.changeTodo(id, title, categoryId);
+    if (title) {
+      let findIt = this.props.category.todos.find(todo => {
+        return todo.title.toLowerCase() === title.toLowerCase();
+      });
+      if (findIt) {
+        alert("Sorry todo with such name already exists");
+      } else {
+        this.props.changeTodo(id, title, categoryId);
+      }
+    } else {
+      alert("Invalid name");
+    }
   };
   goTo = () => {
     this.props.history.push("/");
   };
+
   render() {
-    console.log(this.props);
+    console.log("This props is here", this.props);
+    if (!this.props.category) {
+      return <NotFound />;
+    }
+    console.log(this.props.category);
     const todos = this.props.category.todos;
     const todoList = todos.length ? (
       todos.map(todo => {

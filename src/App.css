@@ -13,6 +13,15 @@
   flex: 1;
   margin-bottom: 5px;
 }
+.content2 {
+  flex: 1;
+  background: #d9534f;
+}
+
+.content2 img {
+  width: 100%;
+  height: 57vh;
+}
 
 .App {
   text-align: center;

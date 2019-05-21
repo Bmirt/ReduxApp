@@ -42,35 +42,6 @@ const rootReducer = (state = initState, action) => {
       ...state,
       categories: deepClone4Win
     };
-
-    // let ourCategory = state.categories.filter(category => {
-    //   return category.id === action.categoryId;
-    // });
-    // let newTodos = ourCategory[0].todos.filter(todo => {
-    //   return action.id !== todo.id;
-    // });
-    // ourCategory[0].todos = [...newTodos];
-    // console.log(ourCategory[0]);
-    // let otherCategories = state.categories.filter(category => {
-    //   return category.id !== action.categoryId;
-    // });
-    // console.log("this is other categories before", otherCategories[0]);
-    // let index = action.id - 1;
-    // console.log("this is other categories after", typeof otherCategories);
-    // let newCategories = [];
-    // if (otherCategories) {
-    //   for (let i = 0; i < otherCategories.length; i++) {
-    //     newCategories.push(otherCategories[i]);
-    //   }
-    // }
-    // console.warn("this is newCategories", newCategories);
-    // newCategories.splice(index, 0, ourCategory[0]);
-    // // newCategories.unshift(ourCategory[0]);
-    // const deepClone4Win = JSON.parse(JSON.stringify(newCategories));
-    // return {
-    //   ...state,
-    //   categories: deepClone4Win
-    // };
   }
   if (action.type === "ADD_TODO") {
     console.log(action.title, action.categoryId);

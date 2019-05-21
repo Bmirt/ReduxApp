@@ -5,7 +5,15 @@ export class Categories extends Component {
   addCategoryFunction = () => {
     let name = prompt("Please add a new category");
     if (name) {
-      this.props.addCategory(name);
+      console.log(this.props.categories);
+      let findIt = this.props.categories.find(category => {
+        return category.name.toLowerCase() === name.toLowerCase();
+      });
+      if (findIt) {
+        alert("Sorry a Category with similar name already exists");
+      } else {
+        this.props.addCategory(name);
+      }
     } else {
       alert(`Can't add a category with name of ${name}`);
     }
@@ -16,7 +24,14 @@ export class Categories extends Component {
   changeCategoryFunction = id => {
     let newName = prompt("Please Change the name");
     if (newName) {
-      this.props.changeCategory(newName, id);
+      let findIt = this.props.categories.find(category => {
+        return category.name.toLowerCase() === newName.toLowerCase();
+      });
+      if (findIt) {
+        alert("Sorry a Category with similar name already exists");
+      } else {
+        this.props.changeCategory(newName, id);
+      }
     } else {
       alert(`Can't add a category with name of ${newName}`);
     }
@@ -26,31 +41,35 @@ export class Categories extends Component {
   };
   render() {
     const { categories } = this.props;
-    const categoryList = categories.map(category => {
-      return (
-        <div
-          className="list-group-item list-group-item-action "
-          id="categoryContainer"
-          key={category.id}
-        >
-          <a onClick={() => this.goTo(category.id)}>{category.name}</a>
-          <div>
-            <button
-              className="btn btn-warning"
-              onClick={() => this.changeCategoryFunction(category.id)}
-            >
-              Change
-            </button>
-            <button
-              className="btn btn-danger"
-              onClick={() => this.deleteCategoryFunction(category.name)}
-            >
-              Delete
-            </button>
+    const categoryList = categories.length ? (
+      categories.map(category => {
+        return (
+          <div
+            className="list-group-item list-group-item-action "
+            id="categoryContainer"
+            key={category.id}
+          >
+            <a onClick={() => this.goTo(category.id)}>{category.name}</a>
+            <div>
+              <button
+                className="btn btn-warning"
+                onClick={() => this.changeCategoryFunction(category.id)}
+              >
+                Change
+              </button>
+              <button
+                className="btn btn-danger"
+                onClick={() => this.deleteCategoryFunction(category.name)}
+              >
+                Delete
+              </button>
+            </div>
           </div>
-        </div>
-      );
-    });
+        );
+      })
+    ) : (
+      <div className="center">No Categories to show</div>
+    );
     return (
       <div className="content">
         <div className="container home">
