@@ -11,6 +11,7 @@ const NotFound = () => (
         margin: "auto",
         position: "relative"
       }}
+      alt="ErrorImage"
     />
     <center>
       <Link to="/">Return to Home Page</Link>

@@ -1,18 +1,26 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 
 export class Categories extends Component {
   addCategoryFunction = () => {
     let name = prompt("Please add a new category");
     if (name) {
-      console.log(this.props.categories);
       let findIt = this.props.categories.find(category => {
         return category.name.toLowerCase() === name.toLowerCase();
       });
       if (findIt) {
         alert("Sorry a Category with similar name already exists");
       } else {
-        this.props.addCategory(name);
+        let categoryIds = [];
+
+        this.props.state.categories.map(category => {
+          return categoryIds.push(category.id);
+        });
+        let newId = Math.max(...categoryIds);
+        if (newId === -Infinity) {
+          newId = 0;
+        }
+
+        this.props.addCategory(newId, name);
       }
     } else {
       alert(`Can't add a category with name of ${name}`);
@@ -30,7 +38,18 @@ export class Categories extends Component {
       if (findIt) {
         alert("Sorry a Category with similar name already exists");
       } else {
-        this.props.changeCategory(newName, id);
+        let findIt = object => {
+          return object.id === id;
+        };
+
+        let newCategory = this.props.state.categories.find(findIt);
+
+        newCategory.name = newName;
+        let otherCategories = [...this.props.state.categories];
+        const index = id - 1;
+        otherCategories.splice(index, 1, newCategory);
+
+        this.props.changeCategory(otherCategories);
       }
     } else {
       alert(`Can't add a category with name of ${newName}`);
@@ -49,7 +68,7 @@ export class Categories extends Component {
             id="categoryContainer"
             key={category.id}
           >
-            <a onClick={() => this.goTo(category.id)}>{category.name}</a>
+            <span onClick={() => this.goTo(category.id)}>{category.name}</span>
             <div>
               <button
                 className="btn btn-warning"
@@ -87,27 +106,4 @@ export class Categories extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    categories: state.categories
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    addCategory: name => {
-      dispatch({ type: "ADD_CATEGORY", name });
-    },
-    deleteCategory: name => {
-      dispatch({ type: "DELETE_CATEGORY", name });
-    },
-    changeCategory: (newName, id) => {
-      dispatch({ type: "CHANGE_CATEGORY", newName, id });
-    }
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Categories);
+export default Categories;

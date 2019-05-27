@@ -1,7 +1,7 @@
 import React from "react";
-import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
-import Todos from "./components/Todos";
-import Categories from "./components/Categories";
+import { Route, BrowserRouter, Switch } from "react-router-dom";
+import Todos from "./containers/Todos";
+import Categories from "./containers/Categories";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import PageNotFound from "./components/NotFound";

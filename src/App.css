@@ -37,6 +37,11 @@ div a {
   text-decoration: none;
 }
 
+div span {
+  color: black;
+  text-decoration: none;
+}
+
 .checked {
   margin-left: 1rem;
   color: green;
@@ -65,6 +70,9 @@ div button {
 a {
   cursor: pointer;
 }
+span {
+  cursor: pointer;
+}
 
 .header__container,
 .footer__container {
@@ -80,6 +88,10 @@ a {
 }
 
 #categoryContainer a {
+  align-self: center;
+}
+
+#categoryContainer span {
   align-self: center;
 }
 
@@ -123,7 +135,7 @@ h2,
 
   background: linear-gradient(transparent, transparent),
     linear-gradient(
-      top,
+      to bottom,
       rgba(213, 173, 109, 1) 0%,
       rgba(213, 173, 109, 1) 26%,
       rgba(226, 186, 120, 1) 35%,
