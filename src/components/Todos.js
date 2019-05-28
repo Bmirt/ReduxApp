@@ -19,13 +19,17 @@ export class Home extends Component {
       if (findIt) {
         alert("Sorry todo with such name already exists");
       } else {
-        let ourCategory = this.props.state.categories.filter(category => {
-          return category.id === this.props.categoryId;
-        });
+        let ourCategory = this.props.state.categoriesReducer.categories.filter(
+          category => {
+            return category.id === this.props.categoryId;
+          }
+        );
 
-        let otherCategories = this.props.state.categories.filter(category => {
-          return category.id !== this.props.categoryId;
-        });
+        let otherCategories = this.props.state.categoriesReducer.categories.filter(
+          category => {
+            return category.id !== this.props.categoryId;
+          }
+        );
 
         let dateObj = new Date();
         let month = dateObj.getMonth() + 1; //months from 1-12
@@ -79,13 +83,17 @@ export class Home extends Component {
     }
   };
   handleClickCheck = (id, categoryId) => {
-    let ourCategory = this.props.state.categories.filter(category => {
-      return category.id === categoryId;
-    });
+    let ourCategory = this.props.state.categoriesReducer.categories.filter(
+      category => {
+        return category.id === categoryId;
+      }
+    );
 
-    let otherCategories = this.props.state.categories.filter(category => {
-      return category.id !== categoryId;
-    });
+    let otherCategories = this.props.state.categoriesReducer.categories.filter(
+      category => {
+        return category.id !== categoryId;
+      }
+    );
 
     let findIt = object => {
       return object.id === id;
@@ -122,13 +130,17 @@ export class Home extends Component {
       if (findIt) {
         alert("Sorry todo with such name already exists");
       } else {
-        let ourCategory = this.props.state.categories.filter(category => {
-          return category.id === categoryId;
-        });
+        let ourCategory = this.props.state.categoriesReducer.categories.filter(
+          category => {
+            return category.id === categoryId;
+          }
+        );
 
-        let otherCategories = this.props.state.categories.filter(category => {
-          return category.id !== categoryId;
-        });
+        let otherCategories = this.props.state.categoriesReducer.categories.filter(
+          category => {
+            return category.id !== categoryId;
+          }
+        );
 
         let findIt = object => {
           return object.id === id;

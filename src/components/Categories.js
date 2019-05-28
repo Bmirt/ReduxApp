@@ -12,7 +12,7 @@ export class Categories extends Component {
       } else {
         let categoryIds = [];
 
-        this.props.state.categories.map(category => {
+        this.props.state.categoriesReducer.categories.map(category => {
           return categoryIds.push(category.id);
         });
         let newId = Math.max(...categoryIds);
@@ -42,10 +42,14 @@ export class Categories extends Component {
           return object.id === id;
         };
 
-        let newCategory = this.props.state.categories.find(findIt);
+        let newCategory = this.props.state.categoriesReducer.categories.find(
+          findIt
+        );
 
         newCategory.name = newName;
-        let otherCategories = [...this.props.state.categories];
+        let otherCategories = [
+          ...this.props.state.categoriesReducer.categories
+        ];
         const index = id - 1;
         otherCategories.splice(index, 1, newCategory);
 
@@ -59,7 +63,8 @@ export class Categories extends Component {
     this.props.history.push(`/${id}`);
   };
   render() {
-    const { categories } = this.props;
+    const { categories } = this.props.state.categoriesReducer;
+
     const categoryList = categories.length ? (
       categories.map(category => {
         return (

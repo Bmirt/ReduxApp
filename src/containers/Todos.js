@@ -10,7 +10,9 @@ import {
 const mapStateToProps = (state, ownProps) => {
   let categoryId = ownProps.match.params.post_id;
   return {
-    category: state.categories.find(category => category.id === categoryId),
+    category: state.categoriesReducer.categories.find(
+      category => category.id === categoryId
+    ),
     categoryId,
     state
   };
