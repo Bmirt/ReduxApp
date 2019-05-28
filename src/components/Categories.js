@@ -50,7 +50,9 @@ export class Categories extends Component {
         let otherCategories = [
           ...this.props.state.categoriesReducer.categories
         ];
-        const index = id - 1;
+        const index = this.props.state.categoriesReducer.categories.findIndex(
+          findIt
+        );
         otherCategories.splice(index, 1, newCategory);
 
         this.props.changeCategory(otherCategories);
